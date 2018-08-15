@@ -163,5 +163,158 @@ namespace WindowsFormsApp3 {
             fg.DrawImage(bmp, new Point(50, 50));
             //bmp.Save(@"C:\圖片存檔.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
+
+        private void button12_Click(object sender, EventArgs e) {
+            fg.Clear(this.BackColor);
+            //
+            Image ii = Properties.Resources._1534179109016;
+            int block_w = 640;
+            int block_h = 360;
+            Bitmap bmp = new Bitmap(ii, new Size(block_w, block_h));
+
+            int block_w2 = block_w/2;
+            int block_h2 = block_h/2;
+
+            Random rr = new Random();
+
+            //
+            Bitmap block_bmp;
+            Label L1;
+            Graphics gs;
+            String ss;
+            //0
+
+            //
+            /*
+                                 ss += "\r\n" + c.Name.Substring(0, 6);
+                    ss += "移除";
+                    if (c.Name.Substring(0, 5) == "block") {
+
+
+             */
+            //
+            ss = "";
+            List < Control > list_ctrl = new List<Control>();
+            foreach (Control c in this.Controls) {
+                list_ctrl.Add(c);
+            }
+            foreach (Control c in list_ctrl) {
+                if (c is Label) {
+                    ss += "\r\n" + c.Name;
+                    c.Dispose();
+                    this.Controls.Remove(c);
+                    ss += "移除";
+                }
+            }
+            //MessageBox.Show("" + ss);
+
+
+            //1
+            block_bmp = new Bitmap(block_w2, block_h2 );//空的圖片
+            gs = Graphics.FromImage(block_bmp);//在空的圖片作畫
+
+            gs.DrawImage(bmp,
+                new Rectangle(0, 0, block_w2, block_h2),
+                new Rectangle(0, 0, block_w2, block_h2),
+                 GraphicsUnit.Pixel);//擷取部分圖片
+            //
+            L1 = new Label();
+            L1.Name = "block1";
+            L1.AutoSize = false;
+            L1.Image = block_bmp;
+            L1.Width = block_bmp.Width;
+            L1.Height = block_bmp.Height;
+            L1.Location = new Point(rr.Next(200), rr.Next(200));
+            L1.MouseDown += ImageLabelMouseDown;
+            L1.MouseUp += ImageLabelMouseUp;
+            L1.MouseMove += ImageLabelMouseMove;
+            this.Controls.Add(L1);
+
+            //2
+            block_bmp = new Bitmap(block_w2, block_h2);//空的圖片
+            gs = Graphics.FromImage(block_bmp);//在空的圖片作畫
+
+            gs.DrawImage(bmp,
+                new Rectangle(0, 0, block_w2, block_h2),
+                new Rectangle(block_w2, 0, block_w2, block_h2),
+                 GraphicsUnit.Pixel);//擷取部分圖片
+            //
+            L1 = new Label();
+            L1.Name = "block2";
+            L1.AutoSize = false;
+            L1.Image = block_bmp;
+            L1.Width = block_bmp.Width;
+            L1.Height = block_bmp.Height;
+            L1.Location = new Point(rr.Next(200), rr.Next(200));
+            L1.MouseDown += ImageLabelMouseDown;
+            L1.MouseUp += ImageLabelMouseUp;
+            L1.MouseMove += ImageLabelMouseMove;
+            this.Controls.Add(L1);
+
+            //3
+            block_bmp = new Bitmap(block_w2, block_h2);//空的圖片
+            gs = Graphics.FromImage(block_bmp);//在空的圖片作畫
+
+            gs.DrawImage(bmp,
+                new Rectangle(0, 0, block_w2, block_h2),
+                new Rectangle(0, block_h2, block_w2, block_h2),
+                 GraphicsUnit.Pixel);//擷取部分圖片
+            //
+            L1 = new Label();
+            L1.Name = "block2";
+            L1.AutoSize = false;
+            L1.Image = block_bmp;
+            L1.Width = block_bmp.Width;
+            L1.Height = block_bmp.Height;
+            L1.Location = new Point(rr.Next(200), rr.Next(200));
+            L1.MouseDown += ImageLabelMouseDown;
+            L1.MouseUp += ImageLabelMouseUp;
+            L1.MouseMove += ImageLabelMouseMove;
+            this.Controls.Add(L1);
+            //4
+            block_bmp = new Bitmap(block_w2, block_h2);//空的圖片
+            gs = Graphics.FromImage(block_bmp);//在空的圖片作畫
+
+            gs.DrawImage(bmp,
+                new Rectangle(0, 0, block_w2, block_h2),
+                new Rectangle(block_w2, block_h2, block_w2, block_h2),
+                 GraphicsUnit.Pixel);//擷取部分圖片
+            //
+            L1 = new Label();
+            L1.Name = "block2";
+            L1.AutoSize = false;
+            L1.Image = block_bmp;
+            L1.Width = block_bmp.Width;
+            L1.Height = block_bmp.Height;
+            L1.Location = new Point(rr.Next(200), rr.Next(200));
+            L1.MouseDown += ImageLabelMouseDown;
+            L1.MouseUp += ImageLabelMouseUp;
+            L1.MouseMove += ImageLabelMouseMove;
+            this.Controls.Add(L1);
+        }
+
+        int oldX, oldY;
+        bool isPress;
+        private void ImageLabelMouseDown(object sender, MouseEventArgs e) {
+            isPress = true;
+            oldX = e.X;
+            oldY = e.Y;
+            if (e.Button == System.Windows.Forms.MouseButtons.Right) {
+
+            }
+        }
+
+        private void ImageLabelMouseMove(object sender, MouseEventArgs e) {
+            if (isPress) {
+                Label LL = sender as Label;
+                LL.Left = e.X + (LL.Left - oldX);
+                LL.Top = e.Y + (LL.Top - oldY);
+            }
+        }
+
+
+        private void ImageLabelMouseUp(object sender, MouseEventArgs e) {
+            isPress = false;
+        }
     }
 }
